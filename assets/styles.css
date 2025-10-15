@@ -1,0 +1,67 @@
+:root{
+  --bg:#0b1220; --card:#111a2b; --fg:#e8eefc; --muted:#a8b3cf; --line:#23314e; --acc:#6ea8fe;
+  --radius:14px; --container:1100px;
+}
+
+/* Reset básico */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+img{max-width:100%;display:block}
+
+/* Tipografía y colores base */
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Layout */
+.container{max-width:var(--container);margin:0 auto;padding:16px}
+
+/* Header */
+.site-header{padding:24px 16px;border-bottom:1px solid var(--line)}
+.site-header h1{margin:0 0 6px;font-size:28px}
+.lead{margin:0 0 10px;color:var(--muted)}
+.nav{display:flex;gap:12px;flex-wrap:wrap}
+.nav a{padding:6px 10px;border:1px solid var(--line);border-radius:999px}
+
+/* KPIs */
+.kpis{display:grid;gap:8px;padding:16px 0}
+.kpi{background:#0e1730;border:1px solid var(--line);padding:10px;border-radius:10px;color:var(--muted)}
+
+/* Grid de tarjetas (responsive) */
+.grid{
+  display:grid;
+  grid-template-columns:1fr;   /* móvil: 1 columna */
+  gap:16px;
+  padding:16px 0 24px;
+}
+@media (min-width:600px){
+  .grid{grid-template-columns:repeat(2,1fr)} /* tablet: 2 columnas */
+}
+@media (min-width:900px){
+  .grid{grid-template-columns:repeat(3,1fr)} /* desktop: 3 columnas */
+}
+
+/* Tarjetas */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  padding:16px;
+  border-radius:var(--radius);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.card h3{margin:0 0 4px;font-size:18px}
+.links{list-style:none;padding:0;margin:6px 0;display:grid;gap:6px}
+small{color:var(--muted)}
+
+/* About y footer */
+.about{padding:8px 0;border-top:1px solid var(--line)}
+.site-footer{border-top:1px solid var(--line);padding:16px 0;color:var(--muted)}
+
+/* Accesibilidad mínima */
+:focus{outline:2px dashed var(--acc);outline-offset:2px}
