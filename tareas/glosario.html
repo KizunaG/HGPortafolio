@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Glosario de Siglas | HG Portafolio</title>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <style>
+    /* Complementos locales, hereda el tema oscuro del styles.css */
+    main { padding: 20px; }
+    .topbar { display: grid; gap: 10px; margin-bottom: 18px; }
+    .actions { display: grid; gap: 10px; grid-template-columns: 1fr; }
+    .search {
+      display: flex; align-items: center; gap: 10px;
+      background: #0e1730; border:1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+    }
+    .search input{
+      background: transparent; border: 0; outline: 0; color: var(--fg); width: 100%;
+      font-size: 16px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 6px 10px; border:1px solid var(--line); border-radius: 999px; cursor: pointer;
+      background:#141e36; color:#cfe2ff; user-select:none; transition: .15s;
+    }
+    .chip:hover { background: var(--acc); color: #fff; }
+    .chip.active { background: var(--acc); color: #fff; }
+
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 700px){ .grid{ grid-template-columns: repeat(2,1fr);} }
+    @media (min-width: 1000px){ .grid{ grid-template-columns: repeat(3,1fr);} }
+
+    .card.term {
+      background: var(--card); border:1px solid var(--line);
+      border-radius: 14px; padding: 16px; box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .card.term:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0,0,0,.45); }
+    .term h3 { margin: 0 0 6px; color:#fff; font-size: 1.05rem; }
+    .term p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+    .back { display:inline-block; margin-bottom: 12px; color: var(--acc); }
+    .subtitle { color: var(--muted); margin-bottom: 6px; }
+    .empty { color: var(--muted); padding: 24px; text-align:center; border:1px dashed var(--line); border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <a href="../index.html" class="back">← Volver al portafolio</a>
+    <header style="text-align:center;margin-bottom:6px">
+      <h1 style="margin:0 0 6px">Glosario de Siglas</h1>
+      <p class="subtitle">Definiciones breves de tecnologías y protocolos clave del desarrollo web.</p>
+    </header>
+
+    <section class="topbar">
+      <div class="actions">
+        <label class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-3.7-3.7m1.2-5.5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="#88a8ff" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="q" type="search" placeholder="Buscar por sigla o descripción..." autocomplete="off" />
+        </label>
+        <div id="chips" class="chips"></div>
+      </div>
+    </section>
+
+    <section id="list" class="grid"></section>
+    <div id="empty" class="empty" style="display:none">Sin resultados. Prueba con otra letra o término.</div>
+  </main>
+
+  <script>
+    // === Datos (TODAS las entradas del documento) ===
+    const TERMS = [
+      ["ADSL","Asymmetric Digital Subscriber Line — Línea de Abonado Digital Asimétrica."],
+      ["AJAX","Asynchronous JavaScript and XML — Técnica para actualizar contenido web sin recargar toda la página."],
+      ["AMF","Action Message Format — Formato para intercambio de datos binarios en apps web interactivas."],
+      ["ASP","Active Server Pages — Tecnología de Microsoft para páginas dinámicas del lado servidor."],
+      ["CERN","Conseil Européen pour la Recherche Nucléaire — Organización Europea para la Investigación Nuclear."],
+      ["CGI","Common Gateway Interface — Interfaz común para que servidores web ejecuten programas externos."],
+      ["CSS","Cascading Style Sheets — Hojas de estilo en cascada para diseño/presentación de HTML."],
+      ["DHCP","Dynamic Host Configuration Protocol — Asigna direcciones IP automáticamente en una red."],
+      ["DNS","Domain Name System — Traduce nombres de dominio a direcciones IP."],
+      ["ECMA","European Computer Manufacturers Association — Organización que publica estándares (como ECMAScript)."],
+      ["FTP","File Transfer Protocol — Protocolo clásico para transferir archivos cliente-servidor."],
+      ["GPRS","General Packet Radio Service — Servicio de paquetes por radio (telefonía móvil 2.5G)."],
+      ["GSM","Global System for Mobile communications — Sistema de comunicaciones móviles 2G."],
+      ["HTML","HyperText Markup Language — Lenguaje base para estructurar páginas web."],
+      ["HTTP","HyperText Transfer Protocol — Protocolo de comunicación para la web."],
+      ["IANA","Internet Assigned Numbers Authority — Autoridad de asignación de números de Internet."],
+      ["IE","Internet Explorer — Navegador histórico de Microsoft."],
+      ["IETF","Internet Engineering Task Force — Comunidad que desarrolla estándares de Internet (RFCs)."],
+      ["IMAP","Internet Message Access Protocol — Acceso a mensajes de correo en el servidor."],
+      ["IP","Internet Protocol — Direccionamiento y enrutamiento de paquetes en redes IP."],
+      ["ISO","International Organization for Standardization — Organización internacional de normalización."],
+      ["JSON","JavaScript Object Notation — Formato ligero de intercambio de datos."],
+      ["JSP","JavaServer Pages — Tecnología Java para vistas dinámicas del lado servidor."],
+      ["LTE/4G","Long Term Evolution / 4ª Generación — Tecnología de banda ancha móvil."],
+      ["MPL","Mozilla Public License — Licencia pública de Mozilla."],
+      ["OS","Operating System — Sistema operativo."],
+      ["PHP","PHP: Hypertext Preprocessor (antes Personal Home Page) — Lenguaje de servidor para la web."],
+      ["POP","Post Office Protocol — Protocolo para recepción de correo (descarga)."],
+      ["RDSI","Red Digital de Servicios Integrados — ISDN."],
+      ["RFC","Request for Comments — Documentos de especificación técnica de Internet."],
+      ["RIA","Rich Internet Application — Aplicación web enriquecida."],
+      ["RSS","Really Simple Syndication / Rich Site Summary — Formato para sindicación de contenidos."],
+      ["RTC","Real-Time Clock — Reloj de tiempo real."],
+      ["SGBD","Sistema de Gestión de Bases de Datos — DBMS."],
+      ["SMTP","Simple Mail Transfer Protocol — Protocolo para envío de correo electrónico."],
+      ["SOAP","Simple Object Access Protocol — Mensajería estructurada entre aplicaciones."],
+      ["STD","Estándares de Internet."],
+      ["UDDI","Universal Description, Discovery, and Integration — Directorio de servicios web."],
+      ["UMTS/3G","Universal Mobile Telecommunications System / 3ª Generación — Telecomunicaciones móviles 3G."],
+      ["URL","Uniform Resource Locator — Localizador uniforme de recursos (direcciones web)."],
+      ["UTC","Coordinated Universal Time — Tiempo universal coordinado."],
+      ["UTR","Unicode Technical Reports — Informes y estándares técnicos de Unicode."],
+      ["W3C","World Wide Web Consortium — Consorcio que define estándares web."],
+      ["WEB","World Wide Web — La Web."],
+      ["WSDL","Web Services Description Language — Lenguaje para describir servicios web."],
+      ["XHTML","eXtensible HyperText Markup Language — HTML basado en XML."],
+      ["XML","eXtensible Markup Language — Lenguaje de marcado extensible para datos."]
+    ];
+
+    // === Render ===
+    const list = document.getElementById('list');
+    const empty = document.getElementById('empty');
+    const q = document.getElementById('q');
+    const chips = document.getElementById('chips');
+
+    function render(items){
+      list.innerHTML = items.map(([sigla,desc]) => `
+        <article class="card term" data-term="${sigla.toLowerCase()} ${desc.toLowerCase()}">
+          <h3>${sigla}</h3>
+          <p>${desc}</p>
+        </article>
+      `).join('');
+      empty.style.display = items.length ? 'none' : 'block';
+    }
+
+    // Chips A-Z (sólo letras presentes)
+    const letters = [...new Set(TERMS.map(([s]) => s[0].toUpperCase()))].sort();
+    chips.innerHTML = `<span class="chip active" data-letter="">Todos</span>` +
+      letters.map(L => `<span class="chip" data-letter="${L}">${L}</span>`).join('');
+
+    let activeLetter = "";
+    function applyFilters(){
+      const text = q.value.trim().toLowerCase();
+      const filtered = TERMS.filter(([sigla, desc]) => {
+        const byLetter = !activeLetter || sigla.toUpperCase().startsWith(activeLetter);
+        const byText = !text || (sigla.toLowerCase().includes(text) || desc.toLowerCase().includes(text));
+        return byLetter && byText;
+      });
+      render(filtered);
+    }
+
+    // Eventos
+    q.addEventListener('input', applyFilters);
+    chips.addEventListener('click', (e)=>{
+      const el = e.target.closest('.chip'); if(!el) return;
+      activeLetter = el.dataset.letter || "";
+      [...chips.children].forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      applyFilters();
+    });
+
+    // init
+    render(TERMS);
+  </script>
+</body>
+</html>
