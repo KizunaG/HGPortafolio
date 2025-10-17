@@ -150,3 +150,109 @@ small { color: var(--muted); font-size: 0.85rem; }
   color: var(--muted);
 }
 .site-footer a { color: var(--acc); }
+
+/* ===== Hero / Presentación ===== */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  align-items: center;
+  padding: 28px 20px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-left .hello {
+  color: var(--muted);
+  letter-spacing: .4px;
+  margin-bottom: 6px;
+}
+
+.hero-name {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  line-height: 1.15;
+  margin: 4px 0 8px;
+  background: linear-gradient(90deg, #63b3ff, #b5ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-role {
+  color: #bcd1ff;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.hero-meta {
+  color: var(--muted);
+  display: grid;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.hero-meta .carnet { color: var(--fg); }
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-outline {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  transition: .2s ease;
+}
+.btn-primary {
+  background: var(--acc);
+  color: #fff;
+  border-color: transparent;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-outline {
+  color: var(--fg);
+  background: #1b2640;
+}
+.btn-outline:hover { background: var(--acc); color: #fff; }
+
+/* Tarjeta de credencial */
+.cred-card {
+  background: #0f1830;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.cred-logo {
+  display: grid;
+  place-items: center;
+  height: 90px;
+  border-radius: 10px;
+  background: #122045;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.cred-logo img {
+  width: 86px;
+  height: 86px;
+  object-fit: contain;
+}
+.fallback-logo {
+  color: #9fbaff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.cred-body { display: grid; gap: 4px; }
+.cred-title { color: #9fbaff; font-weight: 600; }
+.cred-name { font-weight: 700; }
+.cred-sub, .cred-id { color: var(--muted); }
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { order: -1; } /* credencial arriba en móvil */
+}
+
