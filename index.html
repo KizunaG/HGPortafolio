@@ -7,48 +7,36 @@
   <link rel="stylesheet" href="assets/styles.css" />
   <meta name="description" content="Portafolio de tareas del semestre: evidencias, enlaces y entregables." />
 </head>
-<body>
-  <header class="site-header container">
-    <h1>HG Portafolio</h1>
-    <p class="lead">Bitácora de tareas del semestre: evidencias, enlaces y entregables.</p>
-   <nav class="nav">
-  <a href="#presentacion">Inicio</a>
-  <a href="#tareas">Tareas</a>
-</nav>
-
-  </header>
-  <!-- ===== Presentación / Hero ===== -->
-<section id="presentacion" class="hero container">
-  <div class="hero-left">
-    <p class="hello">Hola, soy</p>
-    <h2 class="hero-name">Héctor Rodolfo Galicia Albeño</h2>
-    <p class="hero-role">Estudiante de Ingeniería en Sistemas</p>
-
-    <div class="hero-meta">
-      <div>Universidad Mariano Gálvez de Guatemala</div>
-      <div>Centro Universitario de Chiquimula</div>
-      <div class="carnet">Carnet: <strong>UMG-1790-22-4617</strong></div>
-    </div>
-
-    <!-- (Opcional) enlaces -->
-    <div class="hero-actions">
-      <a href="#tareas" class="btn-primary">Ver tareas</a>
-      <a href="#sobre-mi" class="btn-outline">Sobre mí</a>
-    </div>
+ <!-- ===== Presentación / Hero Card ===== -->
+<section id="presentacion" class="hero-card container">
+  <!-- Logo arriba a la derecha -->
+  <div class="hero-card__logo">
+    <img src="assets/umg.png" alt="UMG" />
   </div>
 
-  <div class="hero-right">
-    <!-- Si tienes el logo, guárdalo en assets/umg.png; si no, queda el texto -->
-    <div class="cred-card">
-      <div class="cred-logo">
-        <img src="assets/umg.png" alt="UMG" onerror="this.style.display='none'">
-        <span class="fallback-logo">UMG</span>
-      </div>
-      <div class="cred-body">
-        <div class="cred-title">Credencial Estudiantil</div>
-        <div class="cred-name">Héctor Rodolfo Galicia Albeño</div>
-        <div class="cred-sub">Ingeniería en Sistemas</div>
-        <div class="cred-id">Carnet: 1790-22-4617</div>
+  <div class="hero-card__grid">
+    <!-- Foto (o iniciales si no hay foto) -->
+    <div class="hero-card__photo">
+      <!-- coloca tu foto en assets/foto.jpg -->
+      <img src="assets/foto.jpg" alt="Foto de Héctor"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+      <div class="photo-fallback">HG</div>
+    </div>
+
+    <!-- Texto -->
+    <div class="hero-card__content">
+      <p class="hello">Hola, soy</p>
+      <h2 class="hero-card__name">Héctor Rodolfo Galicia Albeño</h2>
+      <p class="role">Estudiante de Ingeniería en Sistemas</p>
+
+      <ul class="meta">
+        <li>Universidad Mariano Gálvez de Guatemala</li>
+        <li>Centro Universitario de Chiquimula</li>
+        <li class="carnet">Carnet: <strong>UMG-1790-22-4617</strong></li>
+      </ul>
+
+      <div class="actions">
+        <a href="#tareas" class="btn-primary">Ver tareas</a>
       </div>
     </div>
   </div>

@@ -151,51 +151,107 @@ small { color: var(--muted); font-size: 0.85rem; }
 }
 .site-footer a { color: var(--acc); }
 
-/* ===== Hero / Presentación ===== */
-.hero {
+/* ===== Hero / Presentación centrado ===== */
+.hero-card {
+  position: relative;
+  max-width: 980px;
+  margin: 28px auto;
+  background: #0f1830;            /* combina con tu tema */
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px 22px;
+  box-shadow: var(--shadow);
+}
+
+.hero-card__logo {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 64px;
+  height: 64px;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 28px;
+  place-items: center;
+  background: #122045;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.hero-card__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-card__grid {
+  display: grid;
+  grid-template-columns: 150px 1fr;
   align-items: center;
-  padding: 28px 20px 10px;
-  border-bottom: 1px solid var(--line);
+  gap: 22px;
 }
 
-.hero-left .hello {
+.hero-card__photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: #14234a;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  display: grid;
+  place-items: center;
+}
+.hero-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-fallback {
+  display: none;                  /* se muestra si falla la imagen */
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: #9fbaff;
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+.hero-card__content {
+  text-align: center;             /* centrado elegante */
+}
+.hello {
   color: var(--muted);
-  letter-spacing: .4px;
   margin-bottom: 6px;
+  letter-spacing: .4px;
 }
-
-.hero-name {
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
+.hero-card__name {
+  font-size: clamp(1.6rem, 3.6vw, 2.2rem);
   line-height: 1.15;
   margin: 4px 0 8px;
   background: linear-gradient(90deg, #63b3ff, #b5ccff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-.hero-role {
+.role {
   color: #bcd1ff;
   font-weight: 600;
   margin-bottom: 10px;
 }
-
-.hero-meta {
-  color: var(--muted);
+.meta {
+  list-style: none;
   display: grid;
   gap: 4px;
-  margin-bottom: 14px;
+  color: var(--muted);
+  margin: 10px 0 14px;
 }
-.hero-meta .carnet { color: var(--fg); }
+.meta .carnet { color: var(--fg); }
 
-.hero-actions {
+.actions {
   display: flex;
+  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
 }
-
 .btn-primary,
 .btn-outline {
   display: inline-block;
@@ -216,43 +272,19 @@ small { color: var(--muted); font-size: 0.85rem; }
 }
 .btn-outline:hover { background: var(--acc); color: #fff; }
 
-/* Tarjeta de credencial */
-.cred-card {
-  background: #0f1830;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: var(--shadow);
-}
-
-.cred-logo {
-  display: grid;
-  place-items: center;
-  height: 90px;
-  border-radius: 10px;
-  background: #122045;
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-.cred-logo img {
-  width: 86px;
-  height: 86px;
-  object-fit: contain;
-}
-.fallback-logo {
-  color: #9fbaff;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.cred-body { display: grid; gap: 4px; }
-.cred-title { color: #9fbaff; font-weight: 600; }
-.cred-name { font-weight: 700; }
-.cred-sub, .cred-id { color: var(--muted); }
-
 /* Responsivo */
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-right { order: -1; } /* credencial arriba en móvil */
+@media (max-width: 720px) {
+  .hero-card__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .hero-card__content { text-align: center; }
+  .hero-card__photo {
+    margin: 0 auto;
+    width: 128px;
+    height: 128px;
+  }
+  .hero-card__logo {
+    width: 52px; height: 52px;
+  }
 }
-
